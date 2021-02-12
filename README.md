@@ -2,7 +2,7 @@
 # garfieldpp_nitpc
 ## 陰イオンガスTPCのためのGarfield++シミュレーションツール
 ---
-## author
+## source code author 
 
 追記 2021/02/12 島田拓弥
 
