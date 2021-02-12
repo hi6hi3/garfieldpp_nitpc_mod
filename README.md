@@ -3,8 +3,7 @@
 ## 陰イオンガスTPCのためのGarfield++シミュレーションツール
 ---
 ## source code author 
-
-追記 2021/02/12 島田拓弥
+Takuya Shimada
 
 ---
 ## How to
