@@ -14,11 +14,14 @@ export HEED_DATABASE=$GARFIELD_HOME/Heed/heed++/databece
 ```
 
 ```
-cd $GARFIELD_HOME
-make
+$ cd $GARFIELD_HOME
+$ make
 ```
 ---
 ## Example
 ```
-
+$ cd $GARFIELD_HOME/Example/NITPC/src
+$ make
+$ cd ..
+$ ./nitpc
 ```
