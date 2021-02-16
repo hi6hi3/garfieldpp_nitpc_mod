@@ -26,6 +26,7 @@ $ vim nitpc.cxx
 ```
 nitpc.cxxを編集
 ```
+// nitpc.cxx内
 ...
 //gas->LoadIonMobility("/work/shimada/Garfield++/Mobility/IonMobility_SF6-_SF6.txt"); コメントアウト
 gas->LoadIonMobility("/path/to/Data/IonMobility_SF6-_SF6.txt"); // Mobilityのデータの絶対パスを指定
