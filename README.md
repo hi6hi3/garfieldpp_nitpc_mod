@@ -22,7 +22,33 @@ $ make
 ## Example
 ```
 $ cd $GARFIELD_HOME/Example/NITPC/src
+$ vim nitpc.cxx
+```
+nitpc.cxxを編集
+```
+...
+//gas->LoadIonMobility("/work/shimada/Garfield++/Mobility/IonMobility_SF6-_SF6.txt"); コメントアウト
+gas->LoadIonMobility("/path/to/Data/IonMobility_SF6-_SF6.txt"); // Mobilityのデータの絶対パスを指定
+...
+//std::string data_dir = "/work/shimada/Garfield++/GEM"; コメントアウト
+std::string data_dir = "/path/to/gem/"; // Elmerからのアウトプットのディレクトリにパスを通す
+std::string header = data_dir + "/gemcell/mesh.header";
+std::string element = data_dir + "/gemcell/mesh.elements";
+std::string node = data_dir + "/gemcell/mesh.nodes";
+std::string eps = data_dir + "/gemcell/dielectrics.dat";
+std::string volt = data_dir + "/gemcell/gemcell.result";
+...
+```
+コンパイルして実効すると、シミュレーションが走る
+```
 $ make
 $ cd ..
 $ ./nitpc
+....
+create track.png
+....
+$ display track.png
 ```
+track.pngを見ると、陰イオン(青)と電子(橙)がドリフト・ガス増幅している事がわかる
+
+
