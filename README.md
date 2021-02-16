@@ -52,4 +52,6 @@ $ display track.png
 ```
 track.pngを見ると、陰イオン(青)と電子(橙)がドリフト・ガス増幅している事がわかる
 
+時間経過を見る
+![nitpc gem simulation](https://ppwww.phys.sci.kobe-u.ac.jp/~newage/Shimada/share/avalanche_negativeion.gif)
 
