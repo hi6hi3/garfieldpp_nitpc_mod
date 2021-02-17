@@ -1,6 +1,11 @@
 ---
 # garfieldpp_nitpc
 ## 陰イオンガスTPCのためのGarfield++シミュレーションツール
+
+---
+# README 追記
+2021/02/16 島田 : First commit
+
 ---
 ## source code author 
 Takuya Shimada
