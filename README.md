@@ -1,20 +1,30 @@
 ---
 # garfieldpp_nitpc
-## 陰イオンガスTPCのためのGarfield++シミュレーションツール
+## Garfield++ toolk kit for negative ion simulation
 
 ---
-# README 追記
-2021/02/16 島田 : First commit
+# README Change Log
+2021/02/16 T.Shimada: First commit
+2021/06 H.Ishiura: Small modification. 
+---
+## Main source code author 
+Takuya Shimada (Kobe Univ.)
+
+## Maintaner 
+Hirohisa Ishiura  (Kobe Univ.)
 
 ---
-## source code author 
-Takuya Shimada
+## garfieldpp_nitpc Overview
+This code contains new class "AvalancheNIMicroscopic" for negative ion gas MPGD simulation in Garfield++.
+Source/AvalancheNIMicroscopic.cc and Include/AvalancheNIMicroscopic.hh are added for negative ion tracking and MPGD simulation.
 
----
-## How to
-.bashrc内で環境変数を定義しておく
+
+
+
+## Usage
+
+# .bashrc
 ```
-# .bashrc内
 export GARFIELD_HOME=/pash/to/garfieldpp_nitpc
 export HEED_DATABASE=$GARFIELD_HOME/Heed/heed++/databece
 ```
@@ -29,15 +39,13 @@ $ make
 $ cd $GARFIELD_HOME/Example/NITPC/src
 $ vim nitpc.cxx
 ```
-nitpc.cxxを編集
+
+nitpc.cxx
 ```
-// nitpc.cxx内
+// nitpc.cxx
+gas->LoadIonMobility("/path/to/Data/IonMobility_SF6-_SF6.txt"); // Mobility data path, user should set this file
 ...
-//gas->LoadIonMobility("/work/shimada/Garfield++/Mobility/IonMobility_SF6-_SF6.txt"); コメントアウト
-gas->LoadIonMobility("/path/to/Data/IonMobility_SF6-_SF6.txt"); // Mobilityのデータの絶対パスを指定
-...
-//std::string data_dir = "/work/shimada/Garfield++/GEM"; コメントアウト
-std::string data_dir = "/path/to/gem/"; // Elmerからのアウトプットのディレクトリにパスを通す
+std::string data_dir = "/path/to/gem/"; // Elmer output directory
 std::string header = data_dir + "/gemcell/mesh.header";
 std::string element = data_dir + "/gemcell/mesh.elements";
 std::string node = data_dir + "/gemcell/mesh.nodes";
@@ -45,7 +53,8 @@ std::string eps = data_dir + "/gemcell/dielectrics.dat";
 std::string volt = data_dir + "/gemcell/gemcell.result";
 ...
 ```
-コンパイルして実効すると、シミュレーションが走る
+
+and,
 ```
 $ make
 $ cd ..
@@ -53,10 +62,10 @@ $ ./nitpc
 ....
 create track.png
 ....
-$ display track.png
+$ display track.png 
 ```
-track.pngを見ると、陰イオン(青)と電子(橙)がドリフト・ガス増幅している事がわかる
+track.png shows the visualization of this simulation.
 
-時間経過を見る↓
+Time lapse animation
 ![avalanche_negativeion_gem](https://user-images.githubusercontent.com/52315643/108066478-bcd4af00-70a2-11eb-880f-beb927d8eee5.gif)
 
