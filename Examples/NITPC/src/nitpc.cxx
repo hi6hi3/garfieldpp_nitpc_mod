@@ -31,8 +31,6 @@ int main(int argc, char *argv[]){
 
   TApplication *app = new TApplication("app", &argc, argv);
 
-  //double r_val=0.31;
-
   MediumMagboltz *gas = new MediumMagboltz();
   gas->SetComposition("sf6", 100.);
   gas->SetTemperature(293.15);
@@ -57,6 +55,8 @@ int main(int argc, char *argv[]){
   tree->Branch("time",&time);
   tree->Branch("changePoint",&changePoint);
 
+
+  //setup geometry
   std::string data_dir = "./GEM";
   std::string header = data_dir + "/gemcell/mesh.header";
   std::string element = data_dir + "/gemcell/mesh.elements";
