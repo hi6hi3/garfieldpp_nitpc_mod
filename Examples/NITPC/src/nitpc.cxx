@@ -31,22 +31,23 @@ int main(int argc, char *argv[]){
 
   TApplication *app = new TApplication("app", &argc, argv);
 
-  double r_val=0.31;
+  //double r_val=0.31;
 
   MediumMagboltz *gas = new MediumMagboltz();
   gas->SetComposition("sf6", 100.);
   gas->SetTemperature(293.15);
   gas->SetPressure(76.);
-  //if (argc==4) 
-  gas->EnablePenningTransfer(r_val, 0, "sf6");
   gas->SetMaxElectronEnergy(300.);
   gas->EnableDrift();
   gas->Initialise(true);
-  gas->LoadIonMobility("/work/shimada/Garfield++/Mobility/IonMobility_SF6-_SF6.txt");
+
+  //set ion mobility data by user
+  gas->LoadIonMobility("./data/IonMobility_SF6-_SF6.txt");
 
   TFile* file = new TFile("Tracking.root", "recreate");
   TTree* tree = new TTree("tree","tree");
   int nStep,status;
+
   std::vector<double> xpos,ypos,zpos,time,changePoint;
   tree->Branch("nStep",&nStep);
   tree->Branch("status",&status);
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]){
   tree->Branch("time",&time);
   tree->Branch("changePoint",&changePoint);
 
-  std::string data_dir = "/work/shimada/Garfield++/GEM";
+  std::string data_dir = "./GEM";
   std::string header = data_dir + "/gemcell/mesh.header";
   std::string element = data_dir + "/gemcell/mesh.elements";
   std::string node = data_dir + "/gemcell/mesh.nodes";
@@ -70,9 +71,9 @@ int main(int argc, char *argv[]){
   elm->EnableMirrorPeriodicityY();
   elm->SetMedium(0, gas);
 
-  Sensor *upic = new Sensor();
-  upic->AddComponent(elm);
-  upic->SetArea(-0.03, -0.03, -0.03, 0.03, 0.03, 0.03);
+  Sensor *sens = new Sensor();
+  sens->AddComponent(elm);
+  sens->SetArea(-0.03, -0.03, -0.03, 0.03, 0.03, 0.03);
   
   ViewDrift *viewDrift = new ViewDrift();
 	viewDrift->SetArea(-0.03,-0.03,-0.03,0.03,0.03,0.03);
@@ -92,23 +93,27 @@ int main(int argc, char *argv[]){
 	vMesh->SetColor(3, kGreen);
   
   AvalancheNIMicroscopic *aval = new AvalancheNIMicroscopic();
-  aval->SetSensor(upic);
+  aval->SetSensor(sens);
   aval->SetElectronTransportCut(1e-20);
   aval->SetNegativeIonMass(146);
   //aval->SetDistanceSteps(1e-5); // cm
   aval->SetDistanceSteps(1e-4); // cm
   aval->EnablePlotting(viewDrift);
-  aval->InputDetachCrossSectionData("DetachCrossSection.txt");
+
+  //set detachment cross section data
+  aval->InputDetachCrossSectionData("./data/SF6-_F-_Detach.txt");
   aval->SetDetachModel(1);
   
   
   // Counting
-  double random_x = 0;
-  double random_y = 0;
-  double random_z = 0.01;
-  //double random_z = -0.004;
-  aval->AvalancheNegativeIon(random_x,random_y,random_z,0,0,0,0,0);
+  double init_x = 0;
+  double init_y = 0;
+  double init_z = 0.01;
+  //double init_z = -0.004;
+
+  aval->AvalancheNegativeIon(init_x,init_y,init_z,0,0,0,0,0);
   Int_t nd = aval->GetNumberOfElectronEndpoints();
+
   for(int i=0; i<nd; i++){
     xpos.clear();
     ypos.clear();
